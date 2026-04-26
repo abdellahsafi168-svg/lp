@@ -341,9 +341,25 @@
             z-index: 2;
             padding: calc(var(--nav) + 60px) var(--pad) 0;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            max-width: 620px
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            gap: 60px;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 720px;
+        }
+
+        .hero-video-inline {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            max-width: 580px;
         }
 
         .hero-tag {
@@ -2016,8 +2032,16 @@
             }
 
             .hero-content {
+                flex-direction: column;
                 padding-top: calc(var(--nav) + 48px);
-                padding-bottom: 40px
+                padding-bottom: 40px;
+                gap: 32px;
+                align-items: flex-start;
+            }
+
+            .hero-video-inline {
+                justify-content: flex-start;
+                max-width: 100%;
             }
 
             #heroCanvas {
@@ -2495,18 +2519,22 @@
 
         <!-- HERO TEXT & INLINE VIDEO -->
         <div class="hero-content">
-            <div class="hero-tag mono" data-i18n="hero_tag">B2B contract furniture • 2025</div>
-            <h1 class="hero-h1" data-i18n="hero_h1">The table<br>that <em>disappears</em><br>when you need<br>the space.
-            </h1>
-            <p class="hero-p" data-i18n="hero_p">Full 110 cm round table. Folds flat in seconds. Recovers 92% of its
-                storage footprint.
-                Engineered for the spaces that work hardest.</p>
+            <div class="hero-text">
+                <div class="hero-tag mono" data-i18n="hero_tag">B2B contract furniture • 2025</div>
+                <h1 class="hero-h1" data-i18n="hero_h1">The table<br>that <em>disappears</em><br>when you need<br>the space.
+                </h1>
+                <p class="hero-p" data-i18n="hero_p">Full 110 cm round table. Folds flat in seconds. Recovers 92% of its
+                    storage footprint.
+                    Engineered for the spaces that work hardest.</p>
+            </div>
 
             <!-- AUTO-PLAYING HERO VIDEO -->
-            <video autoplay loop muted playsinline
-                style="width:100%;max-width:520px;height:auto;object-fit:cover;border-radius:12px;box-shadow:0 24px 64px rgba(0,0,0,0.4); mix-blend-mode: normal; margin-top: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                <source src="circulo-mechanism.mp4" type="video/mp4">
-            </video>
+            <div class="hero-video-inline">
+                <video autoplay loop muted playsinline
+                    style="width:100%;max-width:520px;height:auto;object-fit:cover;border-radius:12px;box-shadow:0 24px 64px rgba(0,0,0,0.4); mix-blend-mode: normal; border: 1px solid rgba(255,255,255,0.1);">
+                    <source src="circulo-mechanism.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
 
         <!-- STATS BAR -->
