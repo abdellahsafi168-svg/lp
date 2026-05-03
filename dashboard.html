@@ -557,58 +557,91 @@
 </head>
 
 <body>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="brand-avatar">HM</div>
-            <div class="brand-info">
-                <h2>HOMY Studio</h2>
-                <span>Sales Admin</span>
+    <!-- LOGIN OVERLAY -->
+    <div id="login-overlay" style="position:fixed; inset:0; background:var(--bg-body); z-index:100; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+        <div style="background:var(--bg-sidebar); border:1px solid var(--border); padding:40px; border-radius:12px; width:100%; max-width:400px; box-shadow:0 10px 25px rgba(0,0,0,0.05);">
+            <div style="text-align:center; margin-bottom:32px;">
+                <div class="brand-avatar" style="margin: 0 auto 16px;">HM</div>
+                <h2 style="font-size: 20px; font-weight: 600; color:var(--text-main);">Admin Login</h2>
+                <p style="font-size: 13px; color:var(--text-muted); margin-top:4px;">Secure access for HOMY Studio</p>
             </div>
-            <i data-lucide="chevrons-up-down" style="margin-left: auto; width: 14px; color: var(--text-muted)"></i>
+            
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div style="margin-bottom: 16px;">
+                    <label style="display:block; font-size:12px; font-weight:500; color:var(--text-muted); margin-bottom:6px;">Email Address</label>
+                    <input type="email" id="login-email" required style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--bg-body); color:var(--text-main); font-size:14px; outline:none;">
+                </div>
+                <div style="margin-bottom: 24px;">
+                    <label style="display:block; font-size:12px; font-weight:500; color:var(--text-muted); margin-bottom:6px;">Password</label>
+                    <input type="password" id="login-password" required style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--bg-body); color:var(--text-main); font-size:14px; outline:none;">
+                </div>
+                
+                <p id="login-error" style="color: #DC2626; font-size: 12px; margin-bottom: 16px; display: none; text-align:center;"></p>
+                
+                <button type="submit" id="login-btn" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:6px; font-weight:500; font-size:14px; cursor:pointer; transition:background 0.2s;">
+                    Sign In
+                </button>
+            </form>
         </div>
+    </div>
 
-        <div class="nav-section">
-            <a href="#" class="nav-item">
-                <i data-lucide="layout-dashboard"></i>
-                Dashboard
-            </a>
-            <a href="#" class="nav-item">
-                <i data-lucide="inbox"></i>
-                Inbox
-            </a>
-            <a href="#" class="nav-item">
-                <i data-lucide="bell"></i>
-                Notification
-            </a>
-
-            <div class="nav-group-title">WORKSPACE</div>
-
-            <a href="#" class="nav-item active">
-                <i data-lucide="users"></i>
-                Customers
-            </a>
-            <a href="#" class="nav-item">
-                <i data-lucide="package"></i>
-                Inventory
-            </a>
-            <a href="#" class="nav-item">
-                <i data-lucide="bar-chart-2"></i>
-                Report
-            </a>
-
-            <div class="nav-group-title">SYSTEM</div>
-            <div class="nav-item" id="connection-status" style="font-size: 12px; color: var(--text-light);">
-                <span id="status-dot"
-                    style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#9CA3AF;margin-right:8px;"></span>
-                Connecting...
+    <!-- APP CONTENT (Hidden until logged in) -->
+    <div id="app-content" style="display: none; width: 100%; height: 100%;">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-avatar">HM</div>
+                <div class="brand-info">
+                    <h2>HOMY Studio</h2>
+                    <span>Sales Admin</span>
+                </div>
+                <i data-lucide="chevrons-up-down" style="margin-left: auto; width: 14px; color: var(--text-muted)"></i>
             </div>
-        </div>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main">
+    
+            <div class="nav-section">
+                <a href="#" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="inbox"></i>
+                    Inbox
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    Notification
+                </a>
+    
+                <div class="nav-group-title">WORKSPACE</div>
+    
+                <a href="#" class="nav-item active">
+                    <i data-lucide="users"></i>
+                    Customers
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="package"></i>
+                    Inventory
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="bar-chart-2"></i>
+                    Report
+                </a>
+    
+                <div class="nav-group-title">SYSTEM</div>
+                <div class="nav-item" id="connection-status" style="font-size: 12px; color: var(--text-light);">
+                    <span id="status-dot"
+                        style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#9CA3AF;margin-right:8px;"></span>
+                    Connecting...
+                </div>
+                <a href="#" class="nav-item" onclick="handleLogout()" style="margin-top: 20px;">
+                    <i data-lucide="log-out"></i>
+                    Sign Out
+                </a>
+            </div>
+        </aside>
+    
+        <!-- MAIN -->
+        <main class="main">
         <!-- TOPBAR -->
         <div class="topbar">
             <div style="display: flex; align-items: center;">
@@ -1140,13 +1173,94 @@
                     }
                 });
         }
+        // ---------------------------------------------------
+        // AUTHENTICATION
+        // ---------------------------------------------------
+        let sb = null;
 
-        // Initial Load & Realtime Setup
+        async function checkAuth() {
+            sb = initSupabase();
+            if (!sb) {
+                document.getElementById('login-error').textContent = 'Database connection failed. Please try again later.';
+                document.getElementById('login-error').style.display = 'block';
+                return;
+            }
+
+            const { data: { session }, error } = await sb.auth.getSession();
+            
+            if (session) {
+                showApp();
+            } else {
+                showLogin();
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('login-btn');
+            const errEl = document.getElementById('login-error');
+            
+            btn.textContent = 'Signing in...';
+            btn.style.opacity = '0.7';
+            btn.disabled = true;
+            errEl.style.display = 'none';
+
+            const { data, error } = await sb.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                errEl.textContent = error.message;
+                errEl.style.display = 'block';
+                btn.textContent = 'Sign In';
+                btn.style.opacity = '1';
+                btn.disabled = false;
+            } else {
+                showApp();
+            }
+        }
+
+        async function handleLogout() {
+            if (sb) {
+                await sb.auth.signOut();
+                showLogin();
+            }
+        }
+
+        function showApp() {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('app-content').style.display = 'flex';
+            
+            // Only fetch data once we are logged in and showing the app
+            setTimeout(() => {
+                fetchOrders();
+                setupRealtime();
+                lucide.createIcons();
+            }, 100);
+        }
+
+        function showLogin() {
+            document.getElementById('login-overlay').style.display = 'flex';
+            document.getElementById('app-content').style.display = 'none';
+            
+            // Clear inputs and reset button
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+            const btn = document.getElementById('login-btn');
+            btn.textContent = 'Sign In';
+            btn.style.opacity = '1';
+            btn.disabled = false;
+        }
+
+        // Initial Load
         setTimeout(() => {
-            fetchOrders();
-            setupRealtime();
-        }, 500); // Give CDN a moment to settle
+            checkAuth();
+        }, 300); // Give CDN a moment to settle
     </script>
+    </div> <!-- END APP CONTENT -->
 </body>
 
 </html>
