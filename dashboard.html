@@ -174,25 +174,34 @@
         }
 
         .topbar {
-            padding: 24px 32px 16px;
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
-            background: #10B981;
-            /* Green like reference */
-            color: white;
-            border-color: #10B981;
+            align-items: center;
+            background: var(--bg-body);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        [data-theme="dark"] .topbar {
+            background: rgba(11, 11, 10, 0.8);
         }
 
         .page-title h1 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin: 0;
+            color: var(--text-main);
         }
 
         .page-title p {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
+            margin: 0;
         }
 
         .topbar-actions {
@@ -243,7 +252,13 @@
             gap: 12px;
             border-bottom: 1px solid var(--border);
             align-items: center;
-            flex-wrap: wrap;
+            overflow-x: auto;
+            scrollbar-width: none; /* Hide scrollbar for Chrome/Safari */
+            -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+        }
+
+        .toolbar::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome/Safari */
         }
 
         .search-box {
@@ -308,6 +323,26 @@
             background: var(--border);
         }
 
+        .filter-select {
+            padding: 8px 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .filter-select:hover {
+            border-color: var(--text-light);
+        }
+
+        .filter-select:focus {
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+        }
+
         /* --- TABLE --- */
         .table-container {
             flex-grow: 1;
@@ -343,6 +378,62 @@
             margin-left: 4px;
             opacity: 0.5;
         }
+
+        /* Export Dropdown */
+        .export-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .export-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            min-width: 180px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 100;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .export-dropdown:hover .export-options {
+            display: block;
+        }
+
+        .export-opt {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 13px;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+        }
+
+        .export-opt:hover {
+            background: var(--bg-hover);
+        }
+
+        .export-opt i {
+            width: 14px;
+            height: 14px;
+            opacity: 0.7;
+        }
+
+        .export-opt.confirm { color: var(--tag-confirm-txt); }
+        .export-opt.deliver { color: var(--tag-deliver-txt); }
+        .export-opt.pending { color: var(--tag-pending-txt); }
+        .export-opt.no_confirm { color: var(--tag-noconfirm-txt); }
 
         td {
             padding: 14px 16px;
@@ -553,6 +644,121 @@
                 min-width: 0;
             }
         }
+
+        @media (max-width: 600px) {
+            .topbar {
+                padding: 12px 16px;
+            }
+
+            .page-title h1 {
+                font-size: 16px;
+            }
+
+            .page-title p {
+                font-size: 11px;
+            }
+
+            .btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .btn i {
+                width: 12px;
+                height: 12px;
+            }
+
+            .toolbar {
+                padding: 0 16px 12px;
+                gap: 8px;
+                flex-wrap: nowrap; /* Force horizontal scroll */
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .search-box {
+                min-width: 200px; /* Give search box some space */
+                flex-shrink: 0;
+            }
+
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+                gap: 4px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .filter-select {
+                padding: 6px 10px;
+                font-size: 12px;
+                flex-shrink: 0;
+            }
+
+            .table-container {
+                padding: 0 16px 16px;
+            }
+
+            th, td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .avatar {
+                width: 20px;
+                height: 20px;
+                font-size: 9px;
+            }
+
+            .tag {
+                padding: 3px 8px;
+                font-size: 10px;
+            }
+
+            .tag-dot {
+                width: 5px;
+                height: 5px;
+            }
+        }
+
+        /* Bulk Actions Bar */
+        .bulk-actions-bar {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary);
+            color: var(--bg-body);
+            padding: 12px 24px;
+            border-radius: 99px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+        }
+
+        .bulk-actions-bar.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .bulk-btn {
+            background: rgba(128, 128, 128, 0.1);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            color: inherit;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .bulk-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
 
@@ -599,32 +805,16 @@
             </div>
     
             <div class="nav-section">
-                <a href="#" class="nav-item">
-                    <i data-lucide="layout-dashboard"></i>
-                    Dashboard
+                <a href="index.html" class="nav-item" style="margin-bottom: 16px; color: var(--text-main);">
+                    <i data-lucide="home"></i>
+                    Back to Main Site
                 </a>
-                <a href="#" class="nav-item">
-                    <i data-lucide="inbox"></i>
-                    Inbox
-                </a>
-                <a href="#" class="nav-item">
-                    <i data-lucide="bell"></i>
-                    Notification
-                </a>
-    
+
                 <div class="nav-group-title">WORKSPACE</div>
     
                 <a href="#" class="nav-item active">
                     <i data-lucide="users"></i>
                     Customers
-                </a>
-                <a href="#" class="nav-item">
-                    <i data-lucide="package"></i>
-                    Inventory
-                </a>
-                <a href="#" class="nav-item">
-                    <i data-lucide="bar-chart-2"></i>
-                    Report
                 </a>
     
                 <div class="nav-group-title">SYSTEM</div>
@@ -675,26 +865,55 @@
                 </button>
             </div>
 
-            <button class="filter-btn" onclick="setFilter('all')">
+            <button class="filter-btn" data-filter="all" onclick="setFilter('all')">
                 <i data-lucide="list"></i> All Orders
             </button>
-            <button class="filter-btn" onclick="setFilter('pending')">
+            <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">
                 <i data-lucide="clock"></i> Pending
             </button>
-            <button class="filter-btn" onclick="setFilter('confirm')">
+            <button class="filter-btn" data-filter="confirm" onclick="setFilter('confirm')">
                 <i data-lucide="check"></i> Confirmed
             </button>
-            <button class="filter-btn" onclick="setFilter('no_confirm')">
+            <button class="filter-btn" data-filter="no_confirm" onclick="setFilter('no_confirm')">
                 <i data-lucide="x"></i> No Confirm
             </button>
-            <button class="filter-btn" onclick="setFilter('deliver')">
+            <button class="filter-btn" data-filter="deliver" onclick="setFilter('deliver')">
                 <i data-lucide="truck"></i> Delivered
             </button>
 
+            <div class="filter-group" style="display: flex; gap: 8px;">
+                <select id="sizeFilter" class="filter-select" onchange="filterTable()">
+                    <option value="all">All Sizes</option>
+                </select>
+                <select id="finishFilter" class="filter-select" onchange="filterTable()">
+                    <option value="all">All Finishes</option>
+                </select>
+            </div>
+
             <div style="margin-left: auto; display: flex; gap: 8px;">
-                <button class="filter-btn" onclick="exportCSV()">
-                    <i data-lucide="download"></i> Export CSV
-                </button>
+                <div class="export-dropdown">
+                    <button class="filter-btn active" id="export-main-btn" onclick="exportCSV(false)">
+                        <i data-lucide="download"></i> Export Filtered
+                    </button>
+                    <div class="export-options">
+                        <div style="padding: 8px 16px; font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; border-bottom: 1px solid var(--border);">Quick Export</div>
+                        <button class="export-opt" onclick="exportByStatus('all')">
+                            <i data-lucide="list"></i> Everything
+                        </button>
+                        <button class="export-opt confirm" onclick="exportByStatus('confirm')">
+                            <i data-lucide="check"></i> Confirmed Only
+                        </button>
+                        <button class="export-opt deliver" onclick="exportByStatus('deliver')">
+                            <i data-lucide="truck"></i> Delivered Only
+                        </button>
+                        <button class="export-opt pending" onclick="exportByStatus('pending')">
+                            <i data-lucide="clock"></i> Pending Only
+                        </button>
+                        <button class="export-opt no_confirm" onclick="exportByStatus('no_confirm')">
+                            <i data-lucide="x"></i> No Confirm Only
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -704,7 +923,7 @@
                 <thead>
                     <tr>
                         <th style="width: 40px; text-align: center;">
-                            <div class="chk-wrap"><input type="checkbox"></div>
+                            <div class="chk-wrap"><input type="checkbox" onchange="toggleSelectAll(this.checked)"></div>
                         </th>
                         <th><i data-lucide="user"></i> Name</th>
                         <th><i data-lucide="phone"></i> Phone</th>
@@ -735,6 +954,18 @@
         </div>
     </main>
 
+    <!-- BULK ACTIONS BAR -->
+    <div id="bulk-actions" class="bulk-actions-bar">
+        <span id="selected-count" style="font-weight: 500; font-size: 14px;">0 selected</span>
+        <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
+        <button class="bulk-btn" onclick="exportCSV(true)">
+            <i data-lucide="download"></i> Export Selected
+        </button>
+        <button class="bulk-btn" onclick="clearSelection()" style="opacity: 0.8; background: transparent; border: none;">
+            Cancel
+        </button>
+    </div>
+
     <script>
         // Initialize Lucide Icons
         lucide.createIcons();
@@ -763,6 +994,7 @@
         }
 
         let allOrders = [];
+        let filteredOrders = [];
         let currentFilter = 'all';
 
         // Helper: Get Initials
@@ -805,6 +1037,9 @@
                 }
 
                 allOrders = data;
+                
+                // Populate Specs Filters
+                populateSpecsFilters(data);
 
                 // Respect current search/filter
                 filterTable();
@@ -849,15 +1084,23 @@
                 const initials = getInitials(order.full_name);
                 const dateStr = formatDate(order.created_at);
 
+                // Format Phone Number
+                let displayPhone = order.phone_number || '';
+                displayPhone = displayPhone.toString().trim();
+                if (displayPhone && !displayPhone.startsWith('0') && !displayPhone.startsWith('+')) {
+                    displayPhone = '0' + displayPhone;
+                }
+
                 // Status Logic
                 const status = (order.status || 'pending').toLowerCase();
 
                 const specs = `${order.quantity}x ${order.table_size}cm (${order.finish})`;
 
                 const tr = document.createElement('tr');
+                tr.setAttribute('data-id', order.id);
                 tr.innerHTML = `
                     <td style="text-align: center;">
-                        <div class="chk-wrap"><input type="checkbox"></div>
+                        <div class="chk-wrap"><input type="checkbox" onchange="updateBulkActions()"></div>
                     </td>
                     <td>
                         <div class="cell-customer">
@@ -866,9 +1109,9 @@
                             ${order.full_name}
                         </div>
                     </td>
-                    <td class="cell-email" onclick="copyToClipboard('${order.phone_number}', this)" style="cursor:pointer;" title="Click to copy">
+                    <td class="cell-email" onclick="copyToClipboard('${displayPhone}', this)" style="cursor:pointer;" title="Click to copy">
                         <i data-lucide="phone" style="width:14px; color:var(--text-light); margin-right:4px;"></i>
-                        ${order.phone_number} <i data-lucide="copy" style="width:10px; opacity:0.3;"></i>
+                        ${displayPhone} <i data-lucide="copy" style="width:10px; opacity:0.3;"></i>
                     </td>
                     <td>
                         <i data-lucide="map-pin" style="width:14px; color:var(--text-light); margin-right:4px;"></i>
@@ -887,7 +1130,7 @@
                         ${specs}
                     </td>
                     <td>
-                        <select onchange="updateStatus('${order.id}', this.value)" style="border:none; background:transparent; font-weight:600; cursor:pointer;" class="tag ${status}">
+                        <select onchange="updateStatus('${order.id}', this.value, event)" style="border:none; background:transparent; font-weight:600; cursor:pointer;" class="tag ${status}">
                             <option value="pending" ${status === 'pending' ? 'selected' : ''}>Pending</option>
                             <option value="confirm" ${status === 'confirm' ? 'selected' : ''}>Confirm</option>
                             <option value="no_confirm" ${status === 'no_confirm' ? 'selected' : ''}>No Confirm</option>
@@ -916,6 +1159,47 @@
             lucide.createIcons();
         }
 
+        // Populate Filter Dropdowns
+        function populateSpecsFilters(data) {
+            const sizeFilter = document.getElementById('sizeFilter');
+            const finishFilter = document.getElementById('finishFilter');
+            
+            // Define all standard product options
+            const standardSizes = ["90", "110", "130"];
+            const standardFinishes = [
+                "MDF lacquer", 
+                "Dark marble", 
+                "Walnut", 
+                "Grey oak", 
+                "Light oak"
+            ];
+
+            // Combine with any unique values found in data (just in case)
+            const dataSizes = [...new Set(data.map(o => String(o.table_size)).filter(Boolean))];
+            const dataFinishes = [...new Set(data.map(o => o.finish).filter(Boolean))];
+            
+            const allSizes = [...new Set([...standardSizes, ...dataSizes])].sort((a,b) => parseInt(a) - parseInt(b));
+            const allFinishes = [...new Set([...standardFinishes, ...dataFinishes])].sort();
+
+            // Clear current options (except first)
+            sizeFilter.innerHTML = '<option value="all">All Sizes</option>';
+            finishFilter.innerHTML = '<option value="all">All Finishes</option>';
+
+            allSizes.forEach(size => {
+                const opt = document.createElement('option');
+                opt.value = size;
+                opt.textContent = `${size}cm`;
+                sizeFilter.appendChild(opt);
+            });
+
+            allFinishes.forEach(finish => {
+                const opt = document.createElement('option');
+                opt.value = finish;
+                opt.textContent = finish;
+                finishFilter.appendChild(opt);
+            });
+        }
+
         // Theme Logic
         function toggleTheme() {
             const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -939,10 +1223,15 @@
         function setFilter(type) {
             currentFilter = type;
 
+            // Update Export Button Text
+            const exportBtn = document.getElementById('export-main-btn');
+            const label = type === 'all' ? 'All Filtered' : type.charAt(0).toUpperCase() + type.slice(1);
+            exportBtn.innerHTML = `<i data-lucide="download"></i> Export ${label}`;
+            lucide.createIcons();
+
             // Update active button UI
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                const btnText = btn.textContent.toLowerCase();
-                if (btnText.includes(type) || (type === 'all' && btnText.includes('all'))) {
+            document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+                if (btn.getAttribute('data-filter') === type) {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
@@ -975,19 +1264,40 @@
                 filtered = filtered.filter(o => (o.status || 'pending').toLowerCase() === currentFilter);
             }
 
-            // Apply Search Filter (Comprehensive)
+            // Apply Size Filter
+            const sizeVal = document.getElementById('sizeFilter').value;
+            if (sizeVal !== 'all') {
+                filtered = filtered.filter(o => String(o.table_size) === sizeVal);
+            }
+
+            // Apply Finish Filter
+            const finishVal = document.getElementById('finishFilter').value;
+            if (finishVal !== 'all') {
+                filtered = filtered.filter(o => o.finish === finishVal);
+            }
+
+            // Apply Search Filter (Comprehensive - Name, Phone, State, etc.)
             if (query) {
                 filtered = filtered.filter(o => {
                     const fullName = (o.full_name || '').toLowerCase();
-                    const phone = (o.phone_number || '').toLowerCase();
+                    
+                    // Normalize phone search: handle with or without leading zero
+                    let rawPhone = String(o.phone_number || '').toLowerCase();
+                    let formattedPhone = rawPhone;
+                    if (rawPhone && !rawPhone.startsWith('0') && !rawPhone.startsWith('+')) {
+                        formattedPhone = '0' + rawPhone;
+                    }
+
                     const state = (o.state_wilaya || '').toLowerCase();
                     const municipality = (o.municipality || '').toLowerCase();
                     const finish = (o.finish || '').toLowerCase();
                     const size = (o.table_size || '').toString().toLowerCase();
                     const qty = (o.quantity || '').toString().toLowerCase();
 
+                    // Specifically prioritize name and phone as requested
                     return fullName.includes(query) ||
-                        phone.includes(query) ||
+                        rawPhone.includes(query) ||
+                        formattedPhone.includes(query) ||
                         state.includes(query) ||
                         municipality.includes(query) ||
                         finish.includes(query) ||
@@ -996,12 +1306,37 @@
                 });
             }
 
+            filteredOrders = filtered;
             document.getElementById('count-val').textContent = filtered.length;
             renderTable(filtered);
         }
 
+        // Selection Logic
+        function toggleSelectAll(checked) {
+            const checkboxes = document.querySelectorAll('#tableBody input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = checked);
+            updateBulkActions();
+        }
+
+        function updateBulkActions() {
+            const checked = document.querySelectorAll('#tableBody input[type="checkbox"]:checked');
+            const bulkBar = document.getElementById('bulk-actions');
+            if (checked.length > 0) {
+                bulkBar.classList.add('visible');
+                document.getElementById('selected-count').textContent = `${checked.length} selected`;
+            } else {
+                bulkBar.classList.remove('visible');
+            }
+        }
+
+        function clearSelection() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            updateBulkActions();
+        }
+
         // Update Status in Database
-        async function updateStatus(id, newStatus) {
+        async function updateStatus(id, newStatus, event) {
             const sb = initSupabase();
             if (!sb) return;
 
@@ -1078,17 +1413,16 @@
             }
         }
 
-        // Robust CSV Export for Excel
-        function exportCSV() {
-            if (allOrders.length === 0) {
-                alert("No data to export");
+        // Core CSV Download Logic
+        function downloadCSV(dataToExport, filename) {
+            if (!dataToExport || dataToExport.length === 0) {
+                alert("No data to export for this selection");
                 return;
             }
 
             const headers = ["Date", "Customer Name", "Phone", "State (Wilaya)", "Municipality (Commune)", "Specs", "Status", "Language"];
             
-            // Format rows with quoting to handle commas in data
-            const rows = allOrders.map(o => {
+            const rows = dataToExport.map(o => {
                 const specs = `${o.quantity}x ${o.table_size}cm (${o.finish})`;
                 const date = new Date(o.created_at).toLocaleString();
                 
@@ -1104,19 +1438,46 @@
                 ].join(",");
             });
 
-            // Add UTF-8 BOM for Excel Arabic/Special char support
             const csvContent = "\uFEFF" + headers.join(",") + "\n" + rows.join("\n");
-            
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
             
             const link = document.createElement("a");
             link.setAttribute("href", url);
-            link.setAttribute("download", `homy_orders_${new Date().toISOString().split('T')[0]}.csv`);
+            link.setAttribute("download", `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
+        }
+
+        // Export by specific status without changing view
+        function exportByStatus(status) {
+            let data = allOrders;
+            let label = "all";
+            
+            if (status !== 'all') {
+                data = allOrders.filter(o => (o.status || 'pending').toLowerCase() === status);
+                label = status;
+            }
+            
+            downloadCSV(data, `homy_orders_${label}`);
+        }
+
+        // Robust CSV Export for Excel
+        function exportCSV(onlySelected = false) {
+            let dataToExport = onlySelected ? [] : filteredOrders;
+
+            if (onlySelected) {
+                const checked = document.querySelectorAll('#tableBody input[type="checkbox"]:checked');
+                const selectedIds = Array.from(checked).map(cb => cb.closest('tr').getAttribute('data-id'));
+                dataToExport = allOrders.filter(o => selectedIds.includes(o.id));
+            }
+
+            const filename = onlySelected ? 'selected' : (currentFilter === 'all' ? 'filtered' : currentFilter);
+            downloadCSV(dataToExport, `homy_orders_${filename}`);
+            
+            if (onlySelected) clearSelection();
         }
 
         // Initial Load

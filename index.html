@@ -2460,8 +2460,9 @@
             <div class="mf-row">
                 <div class="mf-field"><label class="mf-label" data-i18n="form_state">State (Wilaya)</label><input
                         class="mf-input" id="o_state" type="text" placeholder="Algiers"></div>
-                <div class="mf-field"><label class="mf-label" data-i18n="form_municipality">Municipality (Commune)</label><input
-                        class="mf-input" id="o_municipality" type="text" data-i18n-placeholder="form_municipality_placeholder" placeholder="..."></div>
+                <div class="mf-field"><label class="mf-label" data-i18n="form_municipality">Municipality
+                        (Commune)</label><input class="mf-input" id="o_municipality" type="text"
+                        data-i18n-placeholder="form_municipality_placeholder" placeholder="..."></div>
             </div>
             <div class="mf-row">
                 <div class="mf-field"><label class="mf-label" data-i18n="form_quantity">Quantity</label><input
@@ -2512,7 +2513,8 @@
                 </svg>
                 <span data-i18n="nav_video">Watch video</span>
             </a>
-            <a href="#" class="btn fill sm mono" onclick="openSample();return false" data-i18n="nav_sample">Order now</a>
+            <a href="#" class="btn fill sm mono" onclick="openSample();return false" data-i18n="nav_sample">Order
+                now</a>
         </div>
     </nav>
 
@@ -2790,17 +2792,17 @@
                 <div class="ps-head">
                     <svg class="ps-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
                         <!-- Plate base line -->
-                        <line x1="4" y1="26" x2="28" y2="26" stroke-linecap="round"/>
+                        <line x1="4" y1="26" x2="28" y2="26" stroke-linecap="round" />
                         <!-- Plate rim -->
-                        <path d="M8 26a8 8 0 0 1 16 0" stroke-linecap="round"/>
+                        <path d="M8 26a8 8 0 0 1 16 0" stroke-linecap="round" />
                         <!-- Cloche dome -->
-                        <path d="M6 20C6 13.4 10.5 8 16 8s10 5.4 10 12" stroke-linecap="round"/>
+                        <path d="M6 20C6 13.4 10.5 8 16 8s10 5.4 10 12" stroke-linecap="round" />
                         <!-- Cloche handle -->
-                        <circle cx="16" cy="7" r="1.5" fill="currentColor" stroke="none"/>
+                        <circle cx="16" cy="7" r="1.5" fill="currentColor" stroke="none" />
                         <!-- Fork left -->
-                        <line x1="9" y1="4" x2="9" y2="12" stroke-linecap="round"/>
+                        <line x1="9" y1="4" x2="9" y2="12" stroke-linecap="round" />
                         <!-- Knife right -->
-                        <path d="M23 4v5a2 2 0 0 1-2 2v3" stroke-linecap="round"/>
+                        <path d="M23 4v5a2 2 0 0 1-2 2v3" stroke-linecap="round" />
                     </svg>
                     <div>
                         <div class="ps-name" data-i18n="ps_name_restaurants">Restaurants</div>
@@ -3783,7 +3785,7 @@
             const btn = document.querySelector('.mf-submit');
             const lang = document.documentElement.getAttribute('lang') || 'en';
             const originalText = btn.textContent;
-            
+
             const sb = initSupabase();
             if (!sb) {
                 alert("Database connection not ready. Please refresh the page.");
