@@ -1089,6 +1089,14 @@
                     statusText.innerHTML = '<span id="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#EF4444;margin-right:8px;"></span>Connection Error';
 
                     let msg = err.message || "Unknown error";
+                    
+                    // If session expired, don't alert, just show login
+                    if (msg.toLowerCase().includes("jwt expired")) {
+                        console.warn("Session expired, redirecting to login.");
+                        showLogin();
+                        return;
+                    }
+
                     if (msg.includes("fetch")) msg = "Network error. Check your internet or Supabase URL.";
                     if (msg.includes("401") || msg.includes("403")) msg = "Permission denied. Check RLS policies.";
 
