@@ -253,8 +253,13 @@
             border-bottom: 1px solid var(--border);
             align-items: center;
             overflow-x: auto;
-            scrollbar-width: none; /* Hide scrollbar for Chrome/Safari */
-            -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            position: sticky;
+            top: 68px;
+            z-index: 35;
+            background: var(--bg-body);
+            transition: top 0.3s;
         }
 
         .toolbar::-webkit-scrollbar {
@@ -671,8 +676,9 @@
             .toolbar {
                 padding: 0 16px 12px;
                 gap: 8px;
-                flex-wrap: nowrap; /* Force horizontal scroll */
+                flex-wrap: nowrap;
                 -webkit-overflow-scrolling: touch;
+                top: 54px; /* Shorter topbar on mobile */
             }
 
             .search-box {
