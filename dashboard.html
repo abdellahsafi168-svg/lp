@@ -728,11 +728,12 @@
             transform: translateX(-50%) translateY(100px);
             background: var(--primary);
             color: var(--bg-body);
-            padding: 12px 24px;
+            color: var(--bg-body);
+            padding: 8px 20px;
             border-radius: 99px;
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 1000;
@@ -1388,8 +1389,10 @@
         // Call Logic
         function callCustomer(phoneNumber) {
             if (!phoneNumber) return;
-            // Clean the number (remove spaces etc)
-            const cleanNumber = phoneNumber.replace(/\s+/g, '');
+            let cleanNumber = String(phoneNumber).replace(/\s+/g, '').trim();
+            if (cleanNumber && !cleanNumber.startsWith('0') && !cleanNumber.startsWith('+')) {
+                cleanNumber = '0' + cleanNumber;
+            }
             window.location.href = `tel:${cleanNumber}`;
         }
 
