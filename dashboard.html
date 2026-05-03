@@ -169,8 +169,10 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            height: 100vh;
             min-width: 0;
             background: var(--bg-body);
+            overflow: hidden;
         }
 
         .topbar {
@@ -180,11 +182,10 @@
             align-items: center;
             background: var(--bg-body);
             border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
             z-index: 40;
             backdrop-filter: blur(8px);
             background: rgba(255, 255, 255, 0.8);
+            flex-shrink: 0;
         }
 
         [data-theme="dark"] .topbar {
@@ -254,11 +255,10 @@
             align-items: center;
             overflow-x: auto;
             -ms-overflow-style: none;
-            position: sticky;
-            top: 66px;
             z-index: 35;
             background: var(--bg-body);
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            flex-shrink: 0;
         }
 
         .toolbar::-webkit-scrollbar {
@@ -364,7 +364,7 @@
 
         th {
             position: sticky;
-            top: 0;
+            top: -1px;
             background: var(--bg-body);
             padding: 12px 16px;
             font-size: 12px;
@@ -589,10 +589,15 @@
         }
 
         .empty-state {
-            padding: 60px 20px;
+            padding: 40px;
             text-align: center;
             color: var(--text-muted);
             display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            min-height: 400px;
         }
 
         .empty-state i {
@@ -662,26 +667,14 @@
         }
 
         @media (max-width: 600px) {
+            .main {
+                height: 100vh;
+                overflow: hidden;
+            }
+
             .topbar {
                 padding: 12px 16px;
-            }
-
-            .page-title h1 {
-                font-size: 16px;
-            }
-
-            .page-title p {
-                font-size: 11px;
-            }
-
-            .btn {
-                padding: 6px 10px;
-                font-size: 11px;
-            }
-
-            .btn i {
-                width: 12px;
-                height: 12px;
+                flex-shrink: 0;
             }
 
             .toolbar {
@@ -689,10 +682,10 @@
                 gap: 8px;
                 flex-wrap: nowrap;
                 -webkit-overflow-scrolling: touch;
-                position: sticky;
-                top: 52px;
                 z-index: 35;
                 background: var(--bg-body);
+                flex-shrink: 0;
+                overflow-x: auto;
             }
 
             .search-box {
@@ -824,7 +817,7 @@
     </div>
 
     <!-- APP CONTENT (Hidden until logged in) -->
-    <div id="app-content" style="display: none; width: 100%; height: 100%;">
+    <div id="app-content" style="display: none; width: 100%; height: 100vh; overflow: hidden; display: flex;">
         <!-- SIDEBAR -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
