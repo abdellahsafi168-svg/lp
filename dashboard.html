@@ -247,16 +247,18 @@
 
         /* --- TOOLBAR --- */
         .toolbar {
-            padding: 0 32px 16px;
+            padding: 12px 32px 16px;
             display: flex;
             gap: 12px;
             border-bottom: 1px solid var(--border);
             align-items: center;
             overflow-x: auto;
-            scrollbar-width: none;
-            /* Hide scrollbar for Chrome/Safari */
             -ms-overflow-style: none;
-            /* Hide scrollbar for IE/Edge */
+            position: sticky;
+            top: 66px;
+            z-index: 35;
+            background: var(--bg-body);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
 
         .toolbar::-webkit-scrollbar {
@@ -267,25 +269,19 @@
         .search-box {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            background: var(--bg-sidebar);
-            min-width: 320px;
+            gap: 10px;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-body);
+            min-width: 280px;
             color: var(--text-muted);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .search-box:focus-within {
-            border-color: var(--primary);
-            background: var(--bg-body);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transform: translateY(-1px);
-        }
-
-        .search-box:focus-within i {
-            color: var(--primary);
+            border-color: var(--text-light);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
         }
 
         .search-box i {
@@ -689,18 +685,20 @@
             }
 
             .toolbar {
-                padding: 0 16px 12px;
+                padding: 8px 16px 12px;
                 gap: 8px;
                 flex-wrap: nowrap;
-                /* Force horizontal scroll */
                 -webkit-overflow-scrolling: touch;
+                position: sticky;
+                top: 52px;
+                z-index: 35;
+                background: var(--bg-body);
             }
 
             .search-box {
                 min-width: 200px;
+                /* Give search box some space */
                 flex-shrink: 0;
-                padding: 8px 12px;
-                border-radius: 10px;
             }
 
             .filter-btn {
