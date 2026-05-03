@@ -254,34 +254,38 @@
             align-items: center;
             overflow-x: auto;
             scrollbar-width: none;
+            /* Hide scrollbar for Chrome/Safari */
             -ms-overflow-style: none;
-            position: sticky;
-            top: 68px;
-            z-index: 35;
-            background: var(--bg-body);
-            transition: top 0.3s;
+            /* Hide scrollbar for IE/Edge */
         }
 
         .toolbar::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Chrome/Safari */
+            display: none;
+            /* Hide scrollbar for Chrome/Safari */
         }
 
         .search-box {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--bg-body);
-            min-width: 280px;
+            gap: 12px;
+            padding: 10px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-sidebar);
+            min-width: 320px;
             color: var(--text-muted);
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .search-box:focus-within {
-            border-color: var(--text-light);
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary);
+            background: var(--bg-body);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .search-box:focus-within i {
+            color: var(--primary);
         }
 
         .search-box i {
@@ -435,10 +439,21 @@
             opacity: 0.7;
         }
 
-        .export-opt.confirm { color: var(--tag-confirm-txt); }
-        .export-opt.deliver { color: var(--tag-deliver-txt); }
-        .export-opt.pending { color: var(--tag-pending-txt); }
-        .export-opt.no_confirm { color: var(--tag-noconfirm-txt); }
+        .export-opt.confirm {
+            color: var(--tag-confirm-txt);
+        }
+
+        .export-opt.deliver {
+            color: var(--tag-deliver-txt);
+        }
+
+        .export-opt.pending {
+            color: var(--tag-pending-txt);
+        }
+
+        .export-opt.no_confirm {
+            color: var(--tag-noconfirm-txt);
+        }
 
         td {
             padding: 14px 16px;
@@ -677,13 +692,15 @@
                 padding: 0 16px 12px;
                 gap: 8px;
                 flex-wrap: nowrap;
+                /* Force horizontal scroll */
                 -webkit-overflow-scrolling: touch;
-                top: 54px; /* Shorter topbar on mobile */
             }
 
             .search-box {
-                min-width: 200px; /* Give search box some space */
+                min-width: 200px;
                 flex-shrink: 0;
+                padding: 8px 12px;
+                border-radius: 10px;
             }
 
             .filter-btn {
@@ -704,7 +721,8 @@
                 padding: 0 16px 16px;
             }
 
-            th, td {
+            th,
+            td {
                 padding: 10px 12px;
                 font-size: 12px;
             }
@@ -771,27 +789,36 @@
 
 <body>
     <!-- LOGIN OVERLAY -->
-    <div id="login-overlay" style="position:fixed; inset:0; background:var(--bg-body); z-index:100; display:flex; align-items:center; justify-content:center; flex-direction:column;">
-        <div style="background:var(--bg-sidebar); border:1px solid var(--border); padding:40px; border-radius:12px; width:100%; max-width:400px; box-shadow:0 10px 25px rgba(0,0,0,0.05);">
+    <div id="login-overlay"
+        style="position:fixed; inset:0; background:var(--bg-body); z-index:100; display:flex; align-items:center; justify-content:center; flex-direction:column;">
+        <div
+            style="background:var(--bg-sidebar); border:1px solid var(--border); padding:40px; border-radius:12px; width:100%; max-width:400px; box-shadow:0 10px 25px rgba(0,0,0,0.05);">
             <div style="text-align:center; margin-bottom:32px;">
                 <div class="brand-avatar" style="margin: 0 auto 16px;">HM</div>
                 <h2 style="font-size: 20px; font-weight: 600; color:var(--text-main);">Admin Login</h2>
                 <p style="font-size: 13px; color:var(--text-muted); margin-top:4px;">Secure access for HOMY Studio</p>
             </div>
-            
+
             <form id="login-form" onsubmit="handleLogin(event)">
                 <div style="margin-bottom: 16px;">
-                    <label style="display:block; font-size:12px; font-weight:500; color:var(--text-muted); margin-bottom:6px;">Email Address</label>
-                    <input type="email" id="login-email" required style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--bg-body); color:var(--text-main); font-size:14px; outline:none;">
+                    <label
+                        style="display:block; font-size:12px; font-weight:500; color:var(--text-muted); margin-bottom:6px;">Email
+                        Address</label>
+                    <input type="email" id="login-email" required
+                        style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--bg-body); color:var(--text-main); font-size:14px; outline:none;">
                 </div>
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size:12px; font-weight:500; color:var(--text-muted); margin-bottom:6px;">Password</label>
-                    <input type="password" id="login-password" required style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--bg-body); color:var(--text-main); font-size:14px; outline:none;">
+                    <label
+                        style="display:block; font-size:12px; font-weight:500; color:var(--text-muted); margin-bottom:6px;">Password</label>
+                    <input type="password" id="login-password" required
+                        style="width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:6px; background:var(--bg-body); color:var(--text-main); font-size:14px; outline:none;">
                 </div>
-                
-                <p id="login-error" style="color: #DC2626; font-size: 12px; margin-bottom: 16px; display: none; text-align:center;"></p>
-                
-                <button type="submit" id="login-btn" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:6px; font-weight:500; font-size:14px; cursor:pointer; transition:background 0.2s;">
+
+                <p id="login-error"
+                    style="color: #DC2626; font-size: 12px; margin-bottom: 16px; display: none; text-align:center;"></p>
+
+                <button type="submit" id="login-btn"
+                    style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:6px; font-weight:500; font-size:14px; cursor:pointer; transition:background 0.2s;">
                     Sign In
                 </button>
             </form>
@@ -810,7 +837,7 @@
                 </div>
                 <i data-lucide="chevrons-up-down" style="margin-left: auto; width: 14px; color: var(--text-muted)"></i>
             </div>
-    
+
             <div class="nav-section">
                 <a href="index.html" class="nav-item" style="margin-bottom: 16px; color: var(--text-main);">
                     <i data-lucide="home"></i>
@@ -818,12 +845,12 @@
                 </a>
 
                 <div class="nav-group-title">WORKSPACE</div>
-    
+
                 <a href="#" class="nav-item active">
                     <i data-lucide="users"></i>
                     Customers
                 </a>
-    
+
                 <div class="nav-group-title">SYSTEM</div>
                 <div class="nav-item" id="connection-status" style="font-size: 12px; color: var(--text-light);">
                     <span id="status-dot"
@@ -836,276 +863,280 @@
                 </a>
             </div>
         </aside>
-    
+
         <!-- MAIN -->
         <main class="main">
-        <!-- TOPBAR -->
-        <div class="topbar">
-            <div style="display: flex; align-items: center;">
-                <button class="mobile-toggle" onclick="toggleSidebar()">
-                    <i data-lucide="menu"></i>
-                </button>
-                <div class="page-title">
-                    <h1>Customers</h1>
-                    <p><span id="count-val">0</span> Orders total</p>
+            <!-- TOPBAR -->
+            <div class="topbar">
+                <div style="display: flex; align-items: center;">
+                    <button class="mobile-toggle" onclick="toggleSidebar()">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <div class="page-title">
+                        <h1>Customers</h1>
+                        <p><span id="count-val">0</span> Orders total</p>
+                    </div>
+                </div>
+                <div class="topbar-actions">
+                    <button class="btn" onclick="toggleTheme()" title="Toggle Appearance">
+                        <i data-lucide="moon"></i>
+                    </button>
+                    <button class="btn" onclick="fetchOrders()">
+                        <i data-lucide="refresh-cw"></i> Sync
+                    </button>
+
                 </div>
             </div>
-            <div class="topbar-actions">
-                <button class="btn" onclick="toggleTheme()" title="Toggle Appearance">
-                    <i data-lucide="moon"></i>
-                </button>
-                <button class="btn" onclick="fetchOrders()">
-                    <i data-lucide="refresh-cw"></i> Sync
-                </button>
-
-            </div>
-        </div>
-        <!-- TOOLBAR -->
-        <div class="toolbar">
-            <div class="search-box">
-                <i data-lucide="search"></i>
-                <input type="text" id="searchInput" placeholder="Search orders, specs, or phone..."
-                    oninput="filterTable()">
-                <button onclick="clearSearch()" id="clear-btn"
-                    style="display:none; background:transparent; border:none; cursor:pointer; color:var(--text-light);">
-                    <i data-lucide="x" style="width:14px; height:14px;"></i>
-                </button>
-            </div>
-
-            <button class="filter-btn" data-filter="all" onclick="setFilter('all')">
-                <i data-lucide="list"></i> All Orders
-            </button>
-            <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">
-                <i data-lucide="clock"></i> Pending
-            </button>
-            <button class="filter-btn" data-filter="confirm" onclick="setFilter('confirm')">
-                <i data-lucide="check"></i> Confirmed
-            </button>
-            <button class="filter-btn" data-filter="no_confirm" onclick="setFilter('no_confirm')">
-                <i data-lucide="x"></i> No Confirm
-            </button>
-            <button class="filter-btn" data-filter="deliver" onclick="setFilter('deliver')">
-                <i data-lucide="truck"></i> Delivered
-            </button>
-
-            <div class="filter-group" style="display: flex; gap: 8px;">
-                <select id="sizeFilter" class="filter-select" onchange="filterTable()">
-                    <option value="all">All Sizes</option>
-                </select>
-                <select id="finishFilter" class="filter-select" onchange="filterTable()">
-                    <option value="all">All Finishes</option>
-                </select>
-            </div>
-
-            <div style="margin-left: auto; display: flex; gap: 8px;">
-                <div class="export-dropdown">
-                    <button class="filter-btn active" id="export-main-btn" onclick="exportCSV(false)">
-                        <i data-lucide="download"></i> Export Filtered
+            <!-- TOOLBAR -->
+            <div class="toolbar">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="searchInput" placeholder="Search orders, specs, or phone..."
+                        oninput="filterTable()">
+                    <button onclick="clearSearch()" id="clear-btn"
+                        style="display:none; background:transparent; border:none; cursor:pointer; color:var(--text-light);">
+                        <i data-lucide="x" style="width:14px; height:14px;"></i>
                     </button>
-                    <div class="export-options">
-                        <div style="padding: 8px 16px; font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; border-bottom: 1px solid var(--border);">Quick Export</div>
-                        <button class="export-opt" onclick="exportByStatus('all')">
-                            <i data-lucide="list"></i> Everything
+                </div>
+
+                <button class="filter-btn" data-filter="all" onclick="setFilter('all')">
+                    <i data-lucide="list"></i> All Orders
+                </button>
+                <button class="filter-btn" data-filter="pending" onclick="setFilter('pending')">
+                    <i data-lucide="clock"></i> Pending
+                </button>
+                <button class="filter-btn" data-filter="confirm" onclick="setFilter('confirm')">
+                    <i data-lucide="check"></i> Confirmed
+                </button>
+                <button class="filter-btn" data-filter="no_confirm" onclick="setFilter('no_confirm')">
+                    <i data-lucide="x"></i> No Confirm
+                </button>
+                <button class="filter-btn" data-filter="deliver" onclick="setFilter('deliver')">
+                    <i data-lucide="truck"></i> Delivered
+                </button>
+
+                <div class="filter-group" style="display: flex; gap: 8px;">
+                    <select id="sizeFilter" class="filter-select" onchange="filterTable()">
+                        <option value="all">All Sizes</option>
+                    </select>
+                    <select id="finishFilter" class="filter-select" onchange="filterTable()">
+                        <option value="all">All Finishes</option>
+                    </select>
+                </div>
+
+                <div style="margin-left: auto; display: flex; gap: 8px;">
+                    <div class="export-dropdown">
+                        <button class="filter-btn active" id="export-main-btn" onclick="exportCSV(false)">
+                            <i data-lucide="download"></i> Export Filtered
                         </button>
-                        <button class="export-opt confirm" onclick="exportByStatus('confirm')">
-                            <i data-lucide="check"></i> Confirmed Only
-                        </button>
-                        <button class="export-opt deliver" onclick="exportByStatus('deliver')">
-                            <i data-lucide="truck"></i> Delivered Only
-                        </button>
-                        <button class="export-opt pending" onclick="exportByStatus('pending')">
-                            <i data-lucide="clock"></i> Pending Only
-                        </button>
-                        <button class="export-opt no_confirm" onclick="exportByStatus('no_confirm')">
-                            <i data-lucide="x"></i> No Confirm Only
-                        </button>
+                        <div class="export-options">
+                            <div
+                                style="padding: 8px 16px; font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; border-bottom: 1px solid var(--border);">
+                                Quick Export</div>
+                            <button class="export-opt" onclick="exportByStatus('all')">
+                                <i data-lucide="list"></i> Everything
+                            </button>
+                            <button class="export-opt confirm" onclick="exportByStatus('confirm')">
+                                <i data-lucide="check"></i> Confirmed Only
+                            </button>
+                            <button class="export-opt deliver" onclick="exportByStatus('deliver')">
+                                <i data-lucide="truck"></i> Delivered Only
+                            </button>
+                            <button class="export-opt pending" onclick="exportByStatus('pending')">
+                                <i data-lucide="clock"></i> Pending Only
+                            </button>
+                            <button class="export-opt no_confirm" onclick="exportByStatus('no_confirm')">
+                                <i data-lucide="x"></i> No Confirm Only
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- TABLE -->
+            <div class="table-container">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px; text-align: center;">
+                                <div class="chk-wrap"><input type="checkbox" onchange="toggleSelectAll(this.checked)">
+                                </div>
+                            </th>
+                            <th><i data-lucide="user"></i> Name</th>
+                            <th><i data-lucide="phone"></i> Phone</th>
+                            <th><i data-lucide="map-pin"></i> State</th>
+                            <th><i data-lucide="map"></i> Commune</th>
+                            <th><i data-lucide="calendar"></i> Created</th>
+                            <th><i data-lucide="package"></i> Specs</th>
+                            <th><i data-lucide="info"></i> Status</th>
+                            <th><i data-lucide="globe"></i> Lang</th>
+                            <th style="width: 40px; text-align: center;"><i data-lucide="phone-call"></i></th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Rows injected here -->
+                    </tbody>
+                </table>
+
+                <div id="loader" class="loading-spinner">
+                    <i data-lucide="loader-2"></i>
+                </div>
+
+                <div id="emptyState" class="empty-state">
+                    <i data-lucide="inbox"></i>
+                    <h3>No orders found</h3>
+                    <p>We couldn't find any orders matching your criteria.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- BULK ACTIONS BAR -->
+        <div id="bulk-actions" class="bulk-actions-bar">
+            <span id="selected-count" style="font-weight: 500; font-size: 14px;">0 selected</span>
+            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
+            <button class="bulk-btn" onclick="exportCSV(true)">
+                <i data-lucide="download"></i> Export Selected
+            </button>
+            <button class="bulk-btn" onclick="clearSelection()"
+                style="opacity: 0.8; background: transparent; border: none;">
+                Cancel
+            </button>
         </div>
 
-        <!-- TABLE -->
-        <div class="table-container">
-            <table id="ordersTable">
-                <thead>
-                    <tr>
-                        <th style="width: 40px; text-align: center;">
-                            <div class="chk-wrap"><input type="checkbox" onchange="toggleSelectAll(this.checked)"></div>
-                        </th>
-                        <th><i data-lucide="user"></i> Name</th>
-                        <th><i data-lucide="phone"></i> Phone</th>
-                        <th><i data-lucide="map-pin"></i> State</th>
-                        <th><i data-lucide="map"></i> Commune</th>
-                        <th><i data-lucide="calendar"></i> Created</th>
-                        <th><i data-lucide="package"></i> Specs</th>
-                        <th><i data-lucide="info"></i> Status</th>
-                        <th><i data-lucide="globe"></i> Lang</th>
-                        <th style="width: 40px; text-align: center;"><i data-lucide="phone-call"></i></th>
-                        <th style="width: 40px;"></th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Rows injected here -->
-                </tbody>
-            </table>
+        <script>
+            // Initialize Lucide Icons
+            lucide.createIcons();
 
-            <div id="loader" class="loading-spinner">
-                <i data-lucide="loader-2"></i>
-            </div>
-
-            <div id="emptyState" class="empty-state">
-                <i data-lucide="inbox"></i>
-                <h3>No orders found</h3>
-                <p>We couldn't find any orders matching your criteria.</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- BULK ACTIONS BAR -->
-    <div id="bulk-actions" class="bulk-actions-bar">
-        <span id="selected-count" style="font-weight: 500; font-size: 14px;">0 selected</span>
-        <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2);"></div>
-        <button class="bulk-btn" onclick="exportCSV(true)">
-            <i data-lucide="download"></i> Export Selected
-        </button>
-        <button class="bulk-btn" onclick="clearSelection()" style="opacity: 0.8; background: transparent; border: none;">
-            Cancel
-        </button>
-    </div>
-
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-
-        // Mobile Sidebar Toggle
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-        }
-
-        // Supabase Init
-        const _supabaseUrl = 'https://yfgqtatdqzygkvlvkiqr.supabase.co';
-        // Using the Publishable Key (Safe for browser use)
-        const _supabaseKey = 'sb_publishable_10DpZ2v7FFGI9g4WqPnIqA_GiCqXjGD';
-        let _supabase = null;
-
-        function initSupabase() {
-            if (_supabase) return _supabase;
-            try {
-                if (typeof supabase === 'undefined') return null;
-                _supabase = supabase.createClient(_supabaseUrl, _supabaseKey);
-                return _supabase;
-            } catch (e) {
-                console.error("Supabase Init Error:", e);
-                return null;
+            // Mobile Sidebar Toggle
+            function toggleSidebar() {
+                document.getElementById('sidebar').classList.toggle('open');
             }
-        }
 
-        let allOrders = [];
-        let filteredOrders = [];
-        let currentFilter = 'all';
+            // Supabase Init
+            const _supabaseUrl = 'https://yfgqtatdqzygkvlvkiqr.supabase.co';
+            // Using the Publishable Key (Safe for browser use)
+            const _supabaseKey = 'sb_publishable_10DpZ2v7FFGI9g4WqPnIqA_GiCqXjGD';
+            let _supabase = null;
 
-        // Helper: Get Initials
-        function getInitials(name) {
-            if (!name) return '?';
-            const parts = name.split(' ');
-            if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-            return name.substring(0, 2).toUpperCase();
-        }
-
-        // Helper: Format Date (Nov 11, 2023)
-        function formatDate(isoString) {
-            const date = new Date(isoString);
-            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        }
-
-        async function fetchOrders() {
-            const loader = document.getElementById('loader');
-            const tbody = document.getElementById('tableBody');
-            const emptyState = document.getElementById('emptyState');
-            const statusDot = document.getElementById('status-dot');
-            const statusText = document.getElementById('connection-status');
-
-            tbody.innerHTML = '';
-            loader.style.display = 'flex';
-            emptyState.style.display = 'none';
-
-            try {
-                const sb = initSupabase();
-                if (!sb) throw new Error("Supabase script failed to load. Check your internet.");
-
-                const { data, error, status } = await sb
-                    .from('orders')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) {
-                    console.error("Supabase Error:", error);
-                    throw error;
+            function initSupabase() {
+                if (_supabase) return _supabase;
+                try {
+                    if (typeof supabase === 'undefined') return null;
+                    _supabase = supabase.createClient(_supabaseUrl, _supabaseKey);
+                    return _supabase;
+                } catch (e) {
+                    console.error("Supabase Init Error:", e);
+                    return null;
                 }
+            }
 
-                allOrders = data;
-                
-                // Populate Specs Filters
-                populateSpecsFilters(data);
+            let allOrders = [];
+            let filteredOrders = [];
+            let currentFilter = 'all';
 
-                // Respect current search/filter
-                filterTable();
+            // Helper: Get Initials
+            function getInitials(name) {
+                if (!name) return '?';
+                const parts = name.split(' ');
+                if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+                return name.substring(0, 2).toUpperCase();
+            }
 
-                document.getElementById('count-val').textContent = allOrders.length;
+            // Helper: Format Date (Nov 11, 2023)
+            function formatDate(isoString) {
+                const date = new Date(isoString);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
 
-                // Update Status Indicator
-                statusDot.style.background = '#10B981';
-                statusText.innerHTML = '<span id="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10B981;margin-right:8px;"></span>Connected';
+            async function fetchOrders() {
+                const loader = document.getElementById('loader');
+                const tbody = document.getElementById('tableBody');
+                const emptyState = document.getElementById('emptyState');
+                const statusDot = document.getElementById('status-dot');
+                const statusText = document.getElementById('connection-status');
+
+                tbody.innerHTML = '';
+                loader.style.display = 'flex';
+                emptyState.style.display = 'none';
+
+                try {
+                    const sb = initSupabase();
+                    if (!sb) throw new Error("Supabase script failed to load. Check your internet.");
+
+                    const { data, error, status } = await sb
+                        .from('orders')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (error) {
+                        console.error("Supabase Error:", error);
+                        throw error;
+                    }
+
+                    allOrders = data;
+
+                    // Populate Specs Filters
+                    populateSpecsFilters(data);
+
+                    // Respect current search/filter
+                    filterTable();
+
+                    document.getElementById('count-val').textContent = allOrders.length;
+
+                    // Update Status Indicator
+                    statusDot.style.background = '#10B981';
+                    statusText.innerHTML = '<span id="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10B981;margin-right:8px;"></span>Connected';
+
+                    if (data.length === 0) {
+                        emptyState.style.display = 'block';
+                    }
+
+                } catch (err) {
+                    console.error("Fetch Error:", err);
+                    statusDot.style.background = '#EF4444';
+                    statusText.innerHTML = '<span id="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#EF4444;margin-right:8px;"></span>Connection Error';
+
+                    let msg = err.message || "Unknown error";
+                    if (msg.includes("fetch")) msg = "Network error. Check your internet or Supabase URL.";
+                    if (msg.includes("401") || msg.includes("403")) msg = "Permission denied. Check RLS policies.";
+
+                    alert("Dashboard Error: " + msg);
+                } finally {
+                    loader.style.display = 'none';
+                }
+            }
+
+            function renderTable(data) {
+                const tbody = document.getElementById('tableBody');
+                const emptyState = document.getElementById('emptyState');
+
+                tbody.innerHTML = '';
 
                 if (data.length === 0) {
                     emptyState.style.display = 'block';
+                    return;
                 }
 
-            } catch (err) {
-                console.error("Fetch Error:", err);
-                statusDot.style.background = '#EF4444';
-                statusText.innerHTML = '<span id="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#EF4444;margin-right:8px;"></span>Connection Error';
+                data.forEach(order => {
+                    const initials = getInitials(order.full_name);
+                    const dateStr = formatDate(order.created_at);
 
-                let msg = err.message || "Unknown error";
-                if (msg.includes("fetch")) msg = "Network error. Check your internet or Supabase URL.";
-                if (msg.includes("401") || msg.includes("403")) msg = "Permission denied. Check RLS policies.";
+                    // Format Phone Number
+                    let displayPhone = order.phone_number || '';
+                    displayPhone = displayPhone.toString().trim();
+                    if (displayPhone && !displayPhone.startsWith('0') && !displayPhone.startsWith('+')) {
+                        displayPhone = '0' + displayPhone;
+                    }
 
-                alert("Dashboard Error: " + msg);
-            } finally {
-                loader.style.display = 'none';
-            }
-        }
+                    // Status Logic
+                    const status = (order.status || 'pending').toLowerCase();
 
-        function renderTable(data) {
-            const tbody = document.getElementById('tableBody');
-            const emptyState = document.getElementById('emptyState');
+                    const specs = `${order.quantity}x ${order.table_size}cm (${order.finish})`;
 
-            tbody.innerHTML = '';
-
-            if (data.length === 0) {
-                emptyState.style.display = 'block';
-                return;
-            }
-
-            data.forEach(order => {
-                const initials = getInitials(order.full_name);
-                const dateStr = formatDate(order.created_at);
-
-                // Format Phone Number
-                let displayPhone = order.phone_number || '';
-                displayPhone = displayPhone.toString().trim();
-                if (displayPhone && !displayPhone.startsWith('0') && !displayPhone.startsWith('+')) {
-                    displayPhone = '0' + displayPhone;
-                }
-
-                // Status Logic
-                const status = (order.status || 'pending').toLowerCase();
-
-                const specs = `${order.quantity}x ${order.table_size}cm (${order.finish})`;
-
-                const tr = document.createElement('tr');
-                tr.setAttribute('data-id', order.id);
-                tr.innerHTML = `
+                    const tr = document.createElement('tr');
+                    tr.setAttribute('data-id', order.id);
+                    tr.innerHTML = `
                     <td style="text-align: center;">
                         <div class="chk-wrap"><input type="checkbox" onchange="updateBulkActions()"></div>
                     </td>
@@ -1159,477 +1190,477 @@
                         </button>
                     </td>
                 `;
-                tbody.appendChild(tr);
-            });
+                    tbody.appendChild(tr);
+                });
 
-            // Re-initialize icons for new DOM elements
-            lucide.createIcons();
-        }
-
-        // Populate Filter Dropdowns
-        function populateSpecsFilters(data) {
-            const sizeFilter = document.getElementById('sizeFilter');
-            const finishFilter = document.getElementById('finishFilter');
-            
-            // Define all standard product options
-            const standardSizes = ["90", "110", "130"];
-            const standardFinishes = [
-                "MDF lacquer", 
-                "Dark marble", 
-                "Walnut", 
-                "Grey oak", 
-                "Light oak"
-            ];
-
-            // Combine with any unique values found in data (just in case)
-            const dataSizes = [...new Set(data.map(o => String(o.table_size)).filter(Boolean))];
-            const dataFinishes = [...new Set(data.map(o => o.finish).filter(Boolean))];
-            
-            const allSizes = [...new Set([...standardSizes, ...dataSizes])].sort((a,b) => parseInt(a) - parseInt(b));
-            const allFinishes = [...new Set([...standardFinishes, ...dataFinishes])].sort();
-
-            // Clear current options (except first)
-            sizeFilter.innerHTML = '<option value="all">All Sizes</option>';
-            finishFilter.innerHTML = '<option value="all">All Finishes</option>';
-
-            allSizes.forEach(size => {
-                const opt = document.createElement('option');
-                opt.value = size;
-                opt.textContent = `${size}cm`;
-                sizeFilter.appendChild(opt);
-            });
-
-            allFinishes.forEach(finish => {
-                const opt = document.createElement('option');
-                opt.value = finish;
-                opt.textContent = finish;
-                finishFilter.appendChild(opt);
-            });
-        }
-
-        // Theme Logic
-        function toggleTheme() {
-            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('dashboard-theme', theme);
-        }
-
-        if (localStorage.getItem('dashboard-theme') === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-
-        // Click to Copy
-        function copyToClipboard(text, el) {
-            navigator.clipboard.writeText(text);
-            const original = el.innerHTML;
-            el.innerHTML = '<span style="color:#10B981">Copied!</span>';
-            setTimeout(() => el.innerHTML = original, 2000);
-        }
-
-        // Filtering Logic
-        function setFilter(type) {
-            currentFilter = type;
-
-            // Update Export Button Text
-            const exportBtn = document.getElementById('export-main-btn');
-            const label = type === 'all' ? 'All Filtered' : type.charAt(0).toUpperCase() + type.slice(1);
-            exportBtn.innerHTML = `<i data-lucide="download"></i> Export ${label}`;
-            lucide.createIcons();
-
-            // Update active button UI
-            document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
-                if (btn.getAttribute('data-filter') === type) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            filterTable();
-        }
-
-        // Basic frontend search & Filter
-        function clearSearch() {
-            const input = document.getElementById('searchInput');
-            input.value = '';
-            document.getElementById('clear-btn').style.display = 'none';
-            filterTable();
-        }
-
-        function filterTable() {
-            const input = document.getElementById('searchInput');
-            const query = input.value.toLowerCase();
-            const clearBtn = document.getElementById('clear-btn');
-
-            // Show/Hide clear button
-            clearBtn.style.display = query ? 'block' : 'none';
-
-            let filtered = allOrders;
-
-            // Apply Status Filter
-            if (currentFilter !== 'all') {
-                filtered = filtered.filter(o => (o.status || 'pending').toLowerCase() === currentFilter);
+                // Re-initialize icons for new DOM elements
+                lucide.createIcons();
             }
 
-            // Apply Size Filter
-            const sizeVal = document.getElementById('sizeFilter').value;
-            if (sizeVal !== 'all') {
-                filtered = filtered.filter(o => String(o.table_size) === sizeVal);
-            }
+            // Populate Filter Dropdowns
+            function populateSpecsFilters(data) {
+                const sizeFilter = document.getElementById('sizeFilter');
+                const finishFilter = document.getElementById('finishFilter');
 
-            // Apply Finish Filter
-            const finishVal = document.getElementById('finishFilter').value;
-            if (finishVal !== 'all') {
-                filtered = filtered.filter(o => o.finish === finishVal);
-            }
+                // Define all standard product options
+                const standardSizes = ["90", "110", "130"];
+                const standardFinishes = [
+                    "MDF lacquer",
+                    "Dark marble",
+                    "Walnut",
+                    "Grey oak",
+                    "Light oak"
+                ];
 
-            // Apply Search Filter (Comprehensive - Name, Phone, State, etc.)
-            if (query) {
-                filtered = filtered.filter(o => {
-                    const fullName = (o.full_name || '').toLowerCase();
-                    
-                    // Normalize phone search: handle with or without leading zero
-                    let rawPhone = String(o.phone_number || '').toLowerCase();
-                    let formattedPhone = rawPhone;
-                    if (rawPhone && !rawPhone.startsWith('0') && !rawPhone.startsWith('+')) {
-                        formattedPhone = '0' + rawPhone;
-                    }
+                // Combine with any unique values found in data (just in case)
+                const dataSizes = [...new Set(data.map(o => String(o.table_size)).filter(Boolean))];
+                const dataFinishes = [...new Set(data.map(o => o.finish).filter(Boolean))];
 
-                    const state = (o.state_wilaya || '').toLowerCase();
-                    const municipality = (o.municipality || '').toLowerCase();
-                    const finish = (o.finish || '').toLowerCase();
-                    const size = (o.table_size || '').toString().toLowerCase();
-                    const qty = (o.quantity || '').toString().toLowerCase();
+                const allSizes = [...new Set([...standardSizes, ...dataSizes])].sort((a, b) => parseInt(a) - parseInt(b));
+                const allFinishes = [...new Set([...standardFinishes, ...dataFinishes])].sort();
 
-                    // Specifically prioritize name and phone as requested
-                    return fullName.includes(query) ||
-                        rawPhone.includes(query) ||
-                        formattedPhone.includes(query) ||
-                        state.includes(query) ||
-                        municipality.includes(query) ||
-                        finish.includes(query) ||
-                        size.includes(query) ||
-                        qty.includes(query);
+                // Clear current options (except first)
+                sizeFilter.innerHTML = '<option value="all">All Sizes</option>';
+                finishFilter.innerHTML = '<option value="all">All Finishes</option>';
+
+                allSizes.forEach(size => {
+                    const opt = document.createElement('option');
+                    opt.value = size;
+                    opt.textContent = `${size}cm`;
+                    sizeFilter.appendChild(opt);
+                });
+
+                allFinishes.forEach(finish => {
+                    const opt = document.createElement('option');
+                    opt.value = finish;
+                    opt.textContent = finish;
+                    finishFilter.appendChild(opt);
                 });
             }
 
-            filteredOrders = filtered;
-            document.getElementById('count-val').textContent = filtered.length;
-            renderTable(filtered);
-        }
-
-        // Selection Logic
-        function toggleSelectAll(checked) {
-            const checkboxes = document.querySelectorAll('#tableBody input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.checked = checked);
-            updateBulkActions();
-        }
-
-        function updateBulkActions() {
-            const checked = document.querySelectorAll('#tableBody input[type="checkbox"]:checked');
-            const bulkBar = document.getElementById('bulk-actions');
-            if (checked.length > 0) {
-                bulkBar.classList.add('visible');
-                document.getElementById('selected-count').textContent = `${checked.length} selected`;
-            } else {
-                bulkBar.classList.remove('visible');
+            // Theme Logic
+            function toggleTheme() {
+                const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('dashboard-theme', theme);
             }
-        }
 
-        function clearSelection() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.checked = false);
-            updateBulkActions();
-        }
+            if (localStorage.getItem('dashboard-theme') === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
 
-        // Update Status in Database
-        async function updateStatus(id, newStatus, event) {
-            const sb = initSupabase();
-            if (!sb) return;
+            // Click to Copy
+            function copyToClipboard(text, el) {
+                navigator.clipboard.writeText(text);
+                const original = el.innerHTML;
+                el.innerHTML = '<span style="color:#10B981">Copied!</span>';
+                setTimeout(() => el.innerHTML = original, 2000);
+            }
 
-            const selectEl = event.target;
-            const originalValue = selectEl.value;
-            const originalClass = selectEl.className;
+            // Filtering Logic
+            function setFilter(type) {
+                currentFilter = type;
 
-            // Visual feedback
-            selectEl.style.opacity = "0.5";
-            selectEl.className = `tag ${newStatus}`;
+                // Update Export Button Text
+                const exportBtn = document.getElementById('export-main-btn');
+                const label = type === 'all' ? 'All Filtered' : type.charAt(0).toUpperCase() + type.slice(1);
+                exportBtn.innerHTML = `<i data-lucide="download"></i> Export ${label}`;
+                lucide.createIcons();
 
-            try {
-                const { error } = await sb
-                    .from('orders')
-                    .update({ status: newStatus })
-                    .eq('id', id);
+                // Update active button UI
+                document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+                    if (btn.getAttribute('data-filter') === type) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
 
-                if (error) {
-                    console.error("Supabase error detail:", error);
-                    throw new Error(error.message || "Database rejected the change");
+                filterTable();
+            }
+
+            // Basic frontend search & Filter
+            function clearSearch() {
+                const input = document.getElementById('searchInput');
+                input.value = '';
+                document.getElementById('clear-btn').style.display = 'none';
+                filterTable();
+            }
+
+            function filterTable() {
+                const input = document.getElementById('searchInput');
+                const query = input.value.toLowerCase();
+                const clearBtn = document.getElementById('clear-btn');
+
+                // Show/Hide clear button
+                clearBtn.style.display = query ? 'block' : 'none';
+
+                let filtered = allOrders;
+
+                // Apply Status Filter
+                if (currentFilter !== 'all') {
+                    filtered = filtered.filter(o => (o.status || 'pending').toLowerCase() === currentFilter);
                 }
 
-                // Update local data
-                const index = allOrders.findIndex(o => o.id === id);
-                if (index !== -1) allOrders[index].status = newStatus;
-
-                console.log(`✅ Status saved: ${newStatus}`);
-            } catch (err) {
-                console.error("Update Error:", err);
-
-                let friendlyMsg = err.message;
-                if (friendlyMsg.includes("column \"status\" does not exist")) {
-                    friendlyMsg = "CRITICAL: The 'status' column is missing in your database! Please run the SQL command provided in the chat.";
-                } else if (friendlyMsg.includes("policy")) {
-                    friendlyMsg = "PERMISSION DENIED: You need to run the UPDATE policy in Supabase SQL Editor.";
+                // Apply Size Filter
+                const sizeVal = document.getElementById('sizeFilter').value;
+                if (sizeVal !== 'all') {
+                    filtered = filtered.filter(o => String(o.table_size) === sizeVal);
                 }
 
-                alert("Update Failed: " + friendlyMsg);
+                // Apply Finish Filter
+                const finishVal = document.getElementById('finishFilter').value;
+                if (finishVal !== 'all') {
+                    filtered = filtered.filter(o => o.finish === finishVal);
+                }
 
-                // Revert UI on failure
-                selectEl.value = originalValue;
-                selectEl.className = originalClass;
-                fetchOrders();
-            } finally {
-                selectEl.style.opacity = "1";
-            }
-        }
+                // Apply Search Filter (Comprehensive - Name, Phone, State, etc.)
+                if (query) {
+                    filtered = filtered.filter(o => {
+                        const fullName = (o.full_name || '').toLowerCase();
 
-        // Call Logic
-        function callCustomer(phoneNumber) {
-            if (!phoneNumber) return;
-            let cleanNumber = String(phoneNumber).replace(/\s+/g, '').trim();
-            if (cleanNumber && !cleanNumber.startsWith('0') && !cleanNumber.startsWith('+')) {
-                cleanNumber = '0' + cleanNumber;
-            }
-            window.location.href = `tel:${cleanNumber}`;
-        }
-
-        // Delete Order from Database
-        async function deleteOrder(id) {
-            if (!confirm("Are you sure you want to delete this order?")) return;
-
-            const sb = initSupabase();
-            if (!sb) return;
-
-            try {
-                const { error } = await sb
-                    .from('orders')
-                    .delete()
-                    .eq('id', id);
-
-                if (error) throw error;
-            } catch (err) {
-                console.error(err);
-                alert("Failed to delete order: " + err.message);
-            }
-        }
-
-        // Core CSV Download Logic
-        function downloadCSV(dataToExport, filename) {
-            if (!dataToExport || dataToExport.length === 0) {
-                alert("No data to export for this selection");
-                return;
-            }
-
-            const headers = ["Date", "Customer Name", "Phone", "State (Wilaya)", "Municipality (Commune)", "Specs", "Status", "Language"];
-            
-            const rows = dataToExport.map(o => {
-                const specs = `${o.quantity}x ${o.table_size}cm (${o.finish})`;
-                const date = new Date(o.created_at).toLocaleString();
-                
-                return [
-                    `"${date}"`,
-                    `"${o.full_name || ''}"`,
-                    `"${o.phone_number || ''}"`,
-                    `"${o.state_wilaya || ''}"`,
-                    `"${o.municipality || ''}"`,
-                    `"${specs}"`,
-                    `"${(o.status || 'pending').toUpperCase()}"`,
-                    `"${(o.language || 'EN').toUpperCase()}"`
-                ].join(",");
-            });
-
-            const csvContent = "\uFEFF" + headers.join(",") + "\n" + rows.join("\n");
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-        }
-
-        // Export by specific status without changing view
-        function exportByStatus(status) {
-            let data = allOrders;
-            let label = "all";
-            
-            if (status !== 'all') {
-                data = allOrders.filter(o => (o.status || 'pending').toLowerCase() === status);
-                label = status;
-            }
-            
-            downloadCSV(data, `homy_orders_${label}`);
-        }
-
-        // Robust CSV Export for Excel
-        function exportCSV(onlySelected = false) {
-            let dataToExport = onlySelected ? [] : filteredOrders;
-
-            if (onlySelected) {
-                const checked = document.querySelectorAll('#tableBody input[type="checkbox"]:checked');
-                const selectedIds = Array.from(checked).map(cb => cb.closest('tr').getAttribute('data-id'));
-                dataToExport = allOrders.filter(o => selectedIds.includes(o.id));
-            }
-
-            const filename = onlySelected ? 'selected' : (currentFilter === 'all' ? 'filtered' : currentFilter);
-            downloadCSV(dataToExport, `homy_orders_${filename}`);
-            
-            if (onlySelected) clearSelection();
-        }
-
-        // Initial Load
-        fetchOrders();
-
-        // ---------------------------------------------------
-        // REAL-TIME SUPABASE CONNECTION
-        // ---------------------------------------------------
-        function setupRealtime() {
-            const sb = initSupabase();
-            if (!sb) return;
-
-            const ordersChannel = sb.channel('public:orders')
-                .on(
-                    'postgres_changes',
-                    { event: '*', schema: 'public', table: 'orders' },
-                    (payload) => {
-                        console.log('Real-time update received:', payload);
-
-                        if (payload.eventType === 'INSERT') {
-                            allOrders.unshift(payload.new);
-                            document.getElementById('count-val').textContent = allOrders.length;
-
-                            const syncBtn = document.querySelector('.topbar-actions .btn:first-child');
-                            const originalHtml = syncBtn.innerHTML;
-                            syncBtn.innerHTML = '<i data-lucide="bell-ring"></i> New Order!';
-                            syncBtn.style.color = '#10B981';
-                            syncBtn.style.borderColor = '#10B981';
-                            lucide.createIcons();
-
-                            setTimeout(() => {
-                                syncBtn.innerHTML = originalHtml;
-                                syncBtn.style.color = '';
-                                syncBtn.style.borderColor = '';
-                                lucide.createIcons();
-                            }, 4000);
-
-                        } else if (payload.eventType === 'UPDATE') {
-                            const index = allOrders.findIndex(o => o.id === payload.new.id);
-                            if (index !== -1) {
-                                allOrders[index] = payload.new;
-                            }
-                        } else if (payload.eventType === 'DELETE') {
-                            allOrders = allOrders.filter(o => o.id !== payload.old.id);
-                            document.getElementById('count-val').textContent = allOrders.length;
+                        // Normalize phone search: handle with or without leading zero
+                        let rawPhone = String(o.phone_number || '').toLowerCase();
+                        let formattedPhone = rawPhone;
+                        if (rawPhone && !rawPhone.startsWith('0') && !rawPhone.startsWith('+')) {
+                            formattedPhone = '0' + rawPhone;
                         }
 
-                        filterTable();
+                        const state = (o.state_wilaya || '').toLowerCase();
+                        const municipality = (o.municipality || '').toLowerCase();
+                        const finish = (o.finish || '').toLowerCase();
+                        const size = (o.table_size || '').toString().toLowerCase();
+                        const qty = (o.quantity || '').toString().toLowerCase();
+
+                        // Specifically prioritize name and phone as requested
+                        return fullName.includes(query) ||
+                            rawPhone.includes(query) ||
+                            formattedPhone.includes(query) ||
+                            state.includes(query) ||
+                            municipality.includes(query) ||
+                            finish.includes(query) ||
+                            size.includes(query) ||
+                            qty.includes(query);
+                    });
+                }
+
+                filteredOrders = filtered;
+                document.getElementById('count-val').textContent = filtered.length;
+                renderTable(filtered);
+            }
+
+            // Selection Logic
+            function toggleSelectAll(checked) {
+                const checkboxes = document.querySelectorAll('#tableBody input[type="checkbox"]');
+                checkboxes.forEach(cb => cb.checked = checked);
+                updateBulkActions();
+            }
+
+            function updateBulkActions() {
+                const checked = document.querySelectorAll('#tableBody input[type="checkbox"]:checked');
+                const bulkBar = document.getElementById('bulk-actions');
+                if (checked.length > 0) {
+                    bulkBar.classList.add('visible');
+                    document.getElementById('selected-count').textContent = `${checked.length} selected`;
+                } else {
+                    bulkBar.classList.remove('visible');
+                }
+            }
+
+            function clearSelection() {
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(cb => cb.checked = false);
+                updateBulkActions();
+            }
+
+            // Update Status in Database
+            async function updateStatus(id, newStatus, event) {
+                const sb = initSupabase();
+                if (!sb) return;
+
+                const selectEl = event.target;
+                const originalValue = selectEl.value;
+                const originalClass = selectEl.className;
+
+                // Visual feedback
+                selectEl.style.opacity = "0.5";
+                selectEl.className = `tag ${newStatus}`;
+
+                try {
+                    const { error } = await sb
+                        .from('orders')
+                        .update({ status: newStatus })
+                        .eq('id', id);
+
+                    if (error) {
+                        console.error("Supabase error detail:", error);
+                        throw new Error(error.message || "Database rejected the change");
                     }
-                )
-                .subscribe((status) => {
-                    if (status === 'SUBSCRIBED') {
-                        console.log('✅ Successfully connected to Supabase Realtime');
+
+                    // Update local data
+                    const index = allOrders.findIndex(o => o.id === id);
+                    if (index !== -1) allOrders[index].status = newStatus;
+
+                    console.log(`✅ Status saved: ${newStatus}`);
+                } catch (err) {
+                    console.error("Update Error:", err);
+
+                    let friendlyMsg = err.message;
+                    if (friendlyMsg.includes("column \"status\" does not exist")) {
+                        friendlyMsg = "CRITICAL: The 'status' column is missing in your database! Please run the SQL command provided in the chat.";
+                    } else if (friendlyMsg.includes("policy")) {
+                        friendlyMsg = "PERMISSION DENIED: You need to run the UPDATE policy in Supabase SQL Editor.";
                     }
+
+                    alert("Update Failed: " + friendlyMsg);
+
+                    // Revert UI on failure
+                    selectEl.value = originalValue;
+                    selectEl.className = originalClass;
+                    fetchOrders();
+                } finally {
+                    selectEl.style.opacity = "1";
+                }
+            }
+
+            // Call Logic
+            function callCustomer(phoneNumber) {
+                if (!phoneNumber) return;
+                let cleanNumber = String(phoneNumber).replace(/\s+/g, '').trim();
+                if (cleanNumber && !cleanNumber.startsWith('0') && !cleanNumber.startsWith('+')) {
+                    cleanNumber = '0' + cleanNumber;
+                }
+                window.location.href = `tel:${cleanNumber}`;
+            }
+
+            // Delete Order from Database
+            async function deleteOrder(id) {
+                if (!confirm("Are you sure you want to delete this order?")) return;
+
+                const sb = initSupabase();
+                if (!sb) return;
+
+                try {
+                    const { error } = await sb
+                        .from('orders')
+                        .delete()
+                        .eq('id', id);
+
+                    if (error) throw error;
+                } catch (err) {
+                    console.error(err);
+                    alert("Failed to delete order: " + err.message);
+                }
+            }
+
+            // Core CSV Download Logic
+            function downloadCSV(dataToExport, filename) {
+                if (!dataToExport || dataToExport.length === 0) {
+                    alert("No data to export for this selection");
+                    return;
+                }
+
+                const headers = ["Date", "Customer Name", "Phone", "State (Wilaya)", "Municipality (Commune)", "Specs", "Status", "Language"];
+
+                const rows = dataToExport.map(o => {
+                    const specs = `${o.quantity}x ${o.table_size}cm (${o.finish})`;
+                    const date = new Date(o.created_at).toLocaleString();
+
+                    return [
+                        `"${date}"`,
+                        `"${o.full_name || ''}"`,
+                        `"${o.phone_number || ''}"`,
+                        `"${o.state_wilaya || ''}"`,
+                        `"${o.municipality || ''}"`,
+                        `"${specs}"`,
+                        `"${(o.status || 'pending').toUpperCase()}"`,
+                        `"${(o.language || 'EN').toUpperCase()}"`
+                    ].join(",");
                 });
-        }
-        // ---------------------------------------------------
-        // AUTHENTICATION
-        // ---------------------------------------------------
-        let sb = null;
 
-        async function checkAuth() {
-            sb = initSupabase();
-            if (!sb) {
-                document.getElementById('login-error').textContent = 'Database connection failed. Please try again later.';
-                document.getElementById('login-error').style.display = 'block';
-                return;
+                const csvContent = "\uFEFF" + headers.join(",") + "\n" + rows.join("\n");
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
             }
 
-            const { data: { session }, error } = await sb.auth.getSession();
-            
-            if (session) {
-                showApp();
-            } else {
-                showLogin();
+            // Export by specific status without changing view
+            function exportByStatus(status) {
+                let data = allOrders;
+                let label = "all";
+
+                if (status !== 'all') {
+                    data = allOrders.filter(o => (o.status || 'pending').toLowerCase() === status);
+                    label = status;
+                }
+
+                downloadCSV(data, `homy_orders_${label}`);
             }
-        }
 
-        async function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const btn = document.getElementById('login-btn');
-            const errEl = document.getElementById('login-error');
-            
-            btn.textContent = 'Signing in...';
-            btn.style.opacity = '0.7';
-            btn.disabled = true;
-            errEl.style.display = 'none';
+            // Robust CSV Export for Excel
+            function exportCSV(onlySelected = false) {
+                let dataToExport = onlySelected ? [] : filteredOrders;
 
-            const { data, error } = await sb.auth.signInWithPassword({
-                email: email,
-                password: password,
-            });
+                if (onlySelected) {
+                    const checked = document.querySelectorAll('#tableBody input[type="checkbox"]:checked');
+                    const selectedIds = Array.from(checked).map(cb => cb.closest('tr').getAttribute('data-id'));
+                    dataToExport = allOrders.filter(o => selectedIds.includes(o.id));
+                }
 
-            if (error) {
-                errEl.textContent = error.message;
-                errEl.style.display = 'block';
+                const filename = onlySelected ? 'selected' : (currentFilter === 'all' ? 'filtered' : currentFilter);
+                downloadCSV(dataToExport, `homy_orders_${filename}`);
+
+                if (onlySelected) clearSelection();
+            }
+
+            // Initial Load
+            fetchOrders();
+
+            // ---------------------------------------------------
+            // REAL-TIME SUPABASE CONNECTION
+            // ---------------------------------------------------
+            function setupRealtime() {
+                const sb = initSupabase();
+                if (!sb) return;
+
+                const ordersChannel = sb.channel('public:orders')
+                    .on(
+                        'postgres_changes',
+                        { event: '*', schema: 'public', table: 'orders' },
+                        (payload) => {
+                            console.log('Real-time update received:', payload);
+
+                            if (payload.eventType === 'INSERT') {
+                                allOrders.unshift(payload.new);
+                                document.getElementById('count-val').textContent = allOrders.length;
+
+                                const syncBtn = document.querySelector('.topbar-actions .btn:first-child');
+                                const originalHtml = syncBtn.innerHTML;
+                                syncBtn.innerHTML = '<i data-lucide="bell-ring"></i> New Order!';
+                                syncBtn.style.color = '#10B981';
+                                syncBtn.style.borderColor = '#10B981';
+                                lucide.createIcons();
+
+                                setTimeout(() => {
+                                    syncBtn.innerHTML = originalHtml;
+                                    syncBtn.style.color = '';
+                                    syncBtn.style.borderColor = '';
+                                    lucide.createIcons();
+                                }, 4000);
+
+                            } else if (payload.eventType === 'UPDATE') {
+                                const index = allOrders.findIndex(o => o.id === payload.new.id);
+                                if (index !== -1) {
+                                    allOrders[index] = payload.new;
+                                }
+                            } else if (payload.eventType === 'DELETE') {
+                                allOrders = allOrders.filter(o => o.id !== payload.old.id);
+                                document.getElementById('count-val').textContent = allOrders.length;
+                            }
+
+                            filterTable();
+                        }
+                    )
+                    .subscribe((status) => {
+                        if (status === 'SUBSCRIBED') {
+                            console.log('✅ Successfully connected to Supabase Realtime');
+                        }
+                    });
+            }
+            // ---------------------------------------------------
+            // AUTHENTICATION
+            // ---------------------------------------------------
+            let sb = null;
+
+            async function checkAuth() {
+                sb = initSupabase();
+                if (!sb) {
+                    document.getElementById('login-error').textContent = 'Database connection failed. Please try again later.';
+                    document.getElementById('login-error').style.display = 'block';
+                    return;
+                }
+
+                const { data: { session }, error } = await sb.auth.getSession();
+
+                if (session) {
+                    showApp();
+                } else {
+                    showLogin();
+                }
+            }
+
+            async function handleLogin(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                const btn = document.getElementById('login-btn');
+                const errEl = document.getElementById('login-error');
+
+                btn.textContent = 'Signing in...';
+                btn.style.opacity = '0.7';
+                btn.disabled = true;
+                errEl.style.display = 'none';
+
+                const { data, error } = await sb.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) {
+                    errEl.textContent = error.message;
+                    errEl.style.display = 'block';
+                    btn.textContent = 'Sign In';
+                    btn.style.opacity = '1';
+                    btn.disabled = false;
+                } else {
+                    showApp();
+                }
+            }
+
+            async function handleLogout() {
+                if (sb) {
+                    await sb.auth.signOut();
+                    showLogin();
+                }
+            }
+
+            function showApp() {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('app-content').style.display = 'flex';
+
+                // Only fetch data once we are logged in and showing the app
+                setTimeout(() => {
+                    fetchOrders();
+                    setupRealtime();
+                    lucide.createIcons();
+                }, 100);
+            }
+
+            function showLogin() {
+                document.getElementById('login-overlay').style.display = 'flex';
+                document.getElementById('app-content').style.display = 'none';
+
+                // Clear inputs and reset button
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+                const btn = document.getElementById('login-btn');
                 btn.textContent = 'Sign In';
                 btn.style.opacity = '1';
                 btn.disabled = false;
-            } else {
-                showApp();
             }
-        }
 
-        async function handleLogout() {
-            if (sb) {
-                await sb.auth.signOut();
-                showLogin();
-            }
-        }
-
-        function showApp() {
-            document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('app-content').style.display = 'flex';
-            
-            // Only fetch data once we are logged in and showing the app
+            // Initial Load
             setTimeout(() => {
-                fetchOrders();
-                setupRealtime();
-                lucide.createIcons();
-            }, 100);
-        }
-
-        function showLogin() {
-            document.getElementById('login-overlay').style.display = 'flex';
-            document.getElementById('app-content').style.display = 'none';
-            
-            // Clear inputs and reset button
-            document.getElementById('login-email').value = '';
-            document.getElementById('login-password').value = '';
-            const btn = document.getElementById('login-btn');
-            btn.textContent = 'Sign In';
-            btn.style.opacity = '1';
-            btn.disabled = false;
-        }
-
-        // Initial Load
-        setTimeout(() => {
-            checkAuth();
-        }, 300); // Give CDN a moment to settle
-    </script>
+                checkAuth();
+            }, 300); // Give CDN a moment to settle
+        </script>
     </div> <!-- END APP CONTENT -->
 </body>
 
